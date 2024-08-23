@@ -19,6 +19,7 @@ const SignIn = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     if (formData.email && formData.password) {
+      try{
       const response = await axios.post(
         "http://localhost:4000/user/signin",
         formData
@@ -29,9 +30,11 @@ const SignIn = () => {
                  localStorage.setItem("token", response.data.message);
                 navigate('/create');
             }
-            if(response.status ===401){
-               console.log("Login failed,user not found");
+          }catch(error){
+            if(error.response.status ===401){
+               alert("Login failed,user not found");
             }
+          }
     } else {
       alert("Please fill out all fields");
     }

@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRouter);
-app.use("/create",auth,promptRouter);
+app.use("/prompt",auth,promptRouter);
 
 app.listen(port, async() => {
   console.log(`Server is running on port ${port}`);
