@@ -23,13 +23,15 @@ const SignIn = () => {
         "http://localhost:4000/user/signin",
         formData
       );
-      if (response.status === 200) {
-        login();
-        localStorage.setItem("token", response.data.token);
-       navigate('/create');
-      }else{
-        alert("User does not exist");
-      }
+            if (response.status === 200) {
+                login();
+                 console.log(response.data);
+                 localStorage.setItem("token", response.data.message);
+                navigate('/create');
+            }
+            if(response.status ===401){
+               console.log("Login failed,user not found");
+            }
     } else {
       alert("Please fill out all fields");
     }

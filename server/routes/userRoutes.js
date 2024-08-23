@@ -5,12 +5,12 @@ const { UserModel } = require('../Models/userSchema');
 
 userRouter.post('/signin',async(req,res)=>{
    const {email,password}  =  req.body;
-    const user = await UserModel.findOne({email: email, password: password});
-    if(user){
+    const user = await UserModel.findOne({email});
+    if(user && user.password===password){
        const token = jwt.sign({userID:user._id,username:user.username},'secret_edvanta',{expiresIn:'1h'});
-        return res.status(200).json({success:'user successfully signed in',message:token});
-    }else{
-        return res.status(401).json({error:'Invalid credentials'});
+        return res.status(200).json({success:'user successfully signed in',message:token,username:user.username});
+     }else{
+        return res.status(401).json({'message':'Invalid credentials'});
     }
 })
 

@@ -1,9 +1,11 @@
 const express = require("express");
 const { userRouter } = require("./routes/userRoutes");
+const {promptRouter} = require("./routes/promptRoutes.js");
 const app = express();
 app.use(express.json());
 const cors = require("cors");
 const mongoose  = require("mongoose");
+const { auth } = require("./middleware/auth.js");
 const port = 4000;
 app.use(
   cors({
@@ -17,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRouter);
+app.use("/create",auth,promptRouter);
 
 app.listen(port, async() => {
   console.log(`Server is running on port ${port}`);

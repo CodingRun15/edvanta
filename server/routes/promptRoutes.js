@@ -12,3 +12,6 @@ const prompt = req.body;
    return res.status(400).json({error:err});
  }
 })
+module.exports = {
+  promptRouter
+}
